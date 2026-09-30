@@ -1,0 +1,39 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+
+# IDE configurations
+.vscode/
+.idea/
+
+# Environment files and credentials
+.env
+.env.*
+secrets.toml
+*.key
+
+# Model weight binaries (auto-downloaded on runtime)
+*.pt
+*.onnx
+*.engine
+*.tflite
+models/*.pt
+
+# Ultralytics runs and cache
+runs/
+.ultralytics/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log

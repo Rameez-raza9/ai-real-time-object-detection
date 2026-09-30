@@ -191,14 +191,14 @@ git init
 git add .
 git commit -m "Initial commit - real time object detection"
 git branch -M main
-git remote add origin https://github.com/YOUR_GITHUB_USERNAME/ai-real-time-object-detection.git
+git remote add origin https://github.com/Rameez-raza9/ai-real-time-object-detection.git
 git push -u origin main
 ```
 
 ### Step 2: Open Streamlit Community Cloud
 1. Go to [share.streamlit.io](https://share.streamlit.io) and log in with your GitHub account.
 2. Click **Create app** (or **New app**).
-3. Select your repository: `YOUR_GITHUB_USERNAME/ai-real-time-object-detection`.
+3. Select your repository: `Rameez-raza9/ai-real-time-object-detection`.
 4. Set **Branch**: `main`.
 5. Set **Main file path**: `app.py`.
 6. Click **Deploy**.

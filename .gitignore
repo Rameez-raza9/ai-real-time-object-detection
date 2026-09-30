@@ -19,12 +19,13 @@ ENV/
 secrets.toml
 *.key
 
-# Model weight binaries (auto-downloaded on runtime)
+# Model weight binaries (whitelist lightweight base weights models/yolov8n.pt)
 *.pt
 *.onnx
 *.engine
 *.tflite
 models/*.pt
+!models/yolov8n.pt
 
 # Ultralytics runs and cache
 runs/

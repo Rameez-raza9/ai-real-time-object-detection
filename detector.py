@@ -6,11 +6,16 @@ Separates deep learning computation completely from web UI logic.
 """
 
 import logging
+import os
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, TypedDict, Union
 import cv2
 import numpy as np
 from PIL import Image
+
+# Suppress Ultralytics verbose output and prevent background auto-updates that can hang in cloud
+os.environ["YOLO_VERBOSE"] = "False"
+os.environ["ULTRALYTICS_AUTOINSTALL"] = "False"
 
 try:
     import torch
@@ -94,14 +99,24 @@ class ObjectDetector:
             RuntimeError: If model cannot be loaded or downloaded.
         """
         try:
-            model_path = Path(model_name)
-            if not model_path.exists():
-                local_candidate = config.MODELS_DIR / model_name
-                if local_candidate.exists():
-                    model_path = local_candidate
+            candidates = [
+                Path(model_name),
+                config.MODELS_DIR / model_name,
+                config.BASE_DIR / model_name,
+            ]
+            resolved_path: Optional[Path] = None
+            for cand in candidates:
+                if cand.is_file():
+                    resolved_path = cand
+                    break
 
-            logger.info("Loading model weights from: %s", model_path)
-            model = YOLO(str(model_path))
+            if resolved_path is not None:
+                logger.info("Loading YOLO weights from local file: %s", resolved_path)
+                model = YOLO(str(resolved_path))
+            else:
+                logger.info("Local weights not found. Loading via Ultralytics identifier: %s", model_name)
+                model = YOLO(model_name)
+
             model.to(self.device)
             return model
         except Exception as e:

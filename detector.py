@@ -19,6 +19,8 @@ os.environ["ULTRALYTICS_AUTOINSTALL"] = "False"
 
 try:
     import torch
+    # Restrict PyTorch CPU worker threads to prevent thread contention on shared cloud vCPUs
+    torch.set_num_threads(2)
     from ultralytics import YOLO
 except ImportError as err:  # pragma: no cover
     raise ImportError(
